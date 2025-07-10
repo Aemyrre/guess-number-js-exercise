@@ -13,6 +13,7 @@
 
 let secretNumber = createSecretNumber();
 let score = 20;
+let highScore = 0;
 // document.querySelector('.number').textContent = secretNumber;
 console.log(secretNumber);
 
@@ -30,17 +31,24 @@ document.querySelector('.check').addEventListener('click', function () {
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
     document.querySelector('.number').textContent = secretNumber;
+    if (score > highScore) {
+      highScore = score;
+      document.querySelector('.highscore').textContent = highScore;
+    }
   } else {
-    score--;
-    if (score < 1) {
-      document.querySelector('.message').textContent = 'You Lost The Game!!';
-    } else {
+    if (score >= 1) {
+      score--;
       if (guess > secretNumber) {
         document.querySelector('.message').textContent = 'Too High!';
       } else {
         document.querySelector('.message').textContent = 'Too Low!';
       }
     }
+
+    if (!score) {
+      document.querySelector('.message').textContent = 'You Lost The Game!!';
+    }
+
     clearInputField();
   }
   document.querySelector('.score').textContent = score;
